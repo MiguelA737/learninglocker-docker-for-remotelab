@@ -25,7 +25,7 @@ sudo ./init-ssl.sh localhost
 
 then stand it up:
 ```
-sudo docker-compose up -d --build
+sudo docker compose up -d --build
 ```
 
 and create the first admin user:
