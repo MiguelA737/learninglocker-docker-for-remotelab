@@ -29,8 +29,7 @@ WORKDIR /opt/learninglocker
 COPY .env ./.env
 
 RUN echo "Building Services" \
-	&& rm yarn.lock \
-	&& npm_config_build_from_source=true yarn install --ignore-engines \
+	&& npm_config_build_from_source=true yarn install --frozen-lockfile --ignore-engines \
 	&& yarn build-all
 	
 #RUN echo "Fixing asset path" \
