@@ -1,5 +1,13 @@
 FROM node:10
 
+# node:10 is based on Debian stretch (EOL), whose repos were moved to archive.debian.org
+RUN echo "Pointing apt at the Debian archive" \
+	&& sed -i -e 's|deb.debian.org/debian|archive.debian.org/debian|g' \
+		-e 's|security.debian.org/debian-security|archive.debian.org/debian-security|g' \
+		-e '/stretch-updates/d' \
+		/etc/apt/sources.list \
+	&& echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99archive
+
 RUN echo "Updating Packages" \
 	&& apt-get update -y \
 	&& apt-get upgrade -y \
