@@ -101,7 +101,6 @@ services:
             - xapi
         ports:
             - "14332:80"
-            - "443:443"
         volumes:
             - ./nginx/letsencrypt:/usr/share/nginx/html
             - ./certbot/etc:/usr/share/keys
