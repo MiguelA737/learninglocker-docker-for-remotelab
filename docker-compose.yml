@@ -100,7 +100,7 @@ services:
             - ui
             - xapi
         ports:
-            - "14332:80"
+            - "10000:80"
         networks:
             - public
 
