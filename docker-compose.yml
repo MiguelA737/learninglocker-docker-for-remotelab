@@ -101,25 +101,9 @@ services:
             - xapi
         ports:
             - "14332:80"
-        volumes:
-            - ./nginx/letsencrypt:/usr/share/nginx/html
-            - ./certbot/etc:/usr/share/keys
         networks:
             - public
 
-    certbot:
-        image: certbot/certbot
-        container_name: 'docker_certbot'
-        volumes:
-            - ./keys:/var/lib/letsencrypt
-            - ./nginx/letsencrypt:/data/letsencrypt
-            - ./certbot/etc:/etc/letsencrypt
-            - ./certbot/log:/var/log/letsencrypt
-        depends_on:
-            - nginx
-        networks:
-            - public
-            
 networks:
     public: 
         driver: bridge

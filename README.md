@@ -20,7 +20,6 @@ copy the baseline settings:
 ```bash
 cp .env.example .env
 sudo ./install-reqs.sh
-sudo ./init-ssl.sh localhost
 ```
 
 then stand it up:
@@ -95,7 +94,7 @@ docker-compose logs -f mongo  # wait until Mongo gets ready
 docker-compose up -d   # launch all the other services
 ```
 
-Open the site and accept non-trusted SSL/TLS certs (see below for trusted certs).
+Open the site at `http://<DOMAIN_NAME>:<published port>` (see the `ports:` entry of the `nginx` service in docker-compose.yml). TLS is disabled in this setup; requests must use the hostname set as `DOMAIN_NAME` in `.env`.
 
 To create a new user and organisation for the site:
 
@@ -112,7 +111,6 @@ Preparing a remote machine for the first time, put .env file to the machine and 
 To deploy a new version (git commit) to the machine, 
 set DOCKER_TAG in .env to the git commit (SHA-1),
 copy docker-compose.yml of the git commit to the machine 
-(see the SSL/TLS notice below),
 and just call the command:
 
 ```
@@ -121,15 +119,9 @@ docker-compose up -d
 
 Keep also in mind the note given above that for the first launch, it might be good to start Mongo only in the first step.
 
-### SSL/TLS certs
+### SSL/TLS
 
-Mount cert files to nginx container adding a section in docker-compose.yml:
-
-```
-     volumes:
-        - "/path-to-certs-on-docker-host/fullchain.pem:/root/ssl/fullchain.pem:ro"
-        - "/path-to-certs-on-docker-host/privkey.pem:/root/ssl/privkey.pem:ro"
-```
+TLS is currently disabled: nginx serves plain HTTP only, so this stack should sit behind a trusted internal network or a TLS-terminating reverse proxy. To re-enable it, restore the `listen 443 ssl` server block and the certificate mounts / certbot service from git history.
 
 ### Backups
 
