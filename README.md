@@ -29,7 +29,7 @@ sudo docker compose up -d --build
 
 and create the first admin user:
 ```
-sudo ./create-admin.sh admin@example.com MyOrg password
+sudo ./create-admin.sh admin@example.com MyOrg password123
 ```
 
 ## Configuring Office 365 SMTP
